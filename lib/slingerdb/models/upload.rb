@@ -14,11 +14,13 @@ module SlingerDB
     has_attribute :first_record_at, DateTime
     has_attribute :last_record_at, DateTime
     has_attribute :created_at, DateTime
+    has_attribute :updated_at, DateTime
     has_attribute :reports, Array
 
     def to_file
       request = Adapter::Request.new :get_file, self.download_uri.path
-      request.send
+      tf = request.send
+      SlingerDB.logger.info Utils.gunzip tf
     end
 
   end

@@ -14,7 +14,7 @@ describe SlingerDB do
     SlingerDB.options = options
     SlingerDB.options[:api_key].should == options[:api_key]
     SlingerDB.options[:log_level].should == SlingerDB.defaults[:log_level]
-    SlingerDB.options[:encryption_algroithm].should == SlingerDB.defaults[:encryption_algroithm]
+    SlingerDB.options[:encryption_algorithm].should == SlingerDB.defaults[:encryption_algorithm]
   end
 
   it "set options from config" do

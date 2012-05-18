@@ -8,8 +8,8 @@ module SlingerDB
           HTTParty.get uri.to_s, :limit => 2, :parser => nil
         end
 
-        def get_file(uri, file)
-          tf = Tempfile.new ['testing_', '.gz'], '/tmp'
+        def get_file(uri)
+          tf = Utils.create_tempfile 'slingerdb_request_get_file_', '.tmp', '/tmp'
           tf.binmode
           open uri.to_s do |f|
             tf.write f.read
