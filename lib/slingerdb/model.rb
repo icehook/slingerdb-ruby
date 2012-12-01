@@ -1,93 +1,109 @@
 module SlingerDB
-  class Model
+  class Model < OpenStruct
+    include Logging
+    include Utils
+
+    @parents, @children, @only_children = [], [], []
+
     class << self
+      attr_accessor :parents
+      attr_accessor :children
+      attr_accessor :only_children
 
-      def resource_path
-        @resource_path
-      end
-
-      def set_resource_path(resource_path)
-        @resource_path = resource_path
-      end
-
-      def resource_name
-        @resource_name
-      end
-
-      def set_resource_name(resource_name)
-        @resource_name = resource_name
-      end
-
-      def attributes
-        @attributes ||= {}
-      end
-
-      def attributes=(attributes)
-        @attributes = attributes
-      end
-
-      def has_attribute(name, type, opts = {})
-        @attributes ||= {}
-        @attributes[name.to_sym] = {:type => type, :opts => opts}
-
-        define_method "#{name}=".to_sym do |arg|
-          instance_exec "#{name}=".to_sym do
-            @attribute_values[name.to_sym] = arg
-          end
-        end
-
-        define_method name.to_sym do
-          instance_exec name.to_sym do
-            @attribute_values[name.to_sym]
-          end
+      def belongs_to(*args)
+        @parents = args.collect do |arg|
+          "SlingerDB::#{arg.to_s.classify}".constantize
         end
       end
 
-      def value_to_type(value, klass)
-        case
-          when value.nil?
-            value
-          when klass == String
-            value.to_s
-          when klass == Float
-            value.to_f
-          when klass == Integer
-            value.to_i
-          when klass == DateTime
-            DateTime.parse value
-          when klass == Array
-            Array(value)
-          when klass == Hash
-            Hash(value)
-          when klass == URI
-            URI.parse value
-          else
-            value
+      def has_many(*args)
+        @children = args.collect do |arg|
+          "SlingerDB::#{arg.to_s.classify}".constantize
         end
       end
 
-      def find(conditions = {})
-        request = Adapter::Request.new :get, self.resource_path, 'search' => conditions
-        response = request.send
-        self.resources_to_models response.parsed_body[self.resource_name]
+      def has_one(*args)
+        @only_children = args.collect do |arg|
+          "SlingerDB::#{arg.to_s.classify}".constantize
+        end
       end
-
-      def resources_to_models(resources)
-        resources.collect{ |resource| self.new(resource) }
-      end
-
     end
 
-    def initialize(attribute_values = {})
-      attribute_values = attribute_values.inject({}){|h,(k,v)| h[k.to_sym] = v; h}
-      attribute_values.each do |k,v|
-        attribute = self.class.attributes[k]
-        if attribute
-          attribute_values[k] = self.class.value_to_type v, attribute[:type]
-        end
-      end
-      @attribute_values = attribute_values
+    def initialize(attributes = {})
+      super
+      create_parent_accessors
+      create_child_accessors
+      create_only_child_accessors
     end
 
+    def to_hash
+      table
+    end
+
+    def to_json
+      to_hash.to_json
+    end
+
+    def to_pretty_json
+      MultiJson.dump(to_hash, :pretty => true)
+    end
+
+    protected
+
+      def create_only_child_accessors
+        return if self.class.only_children.blank?
+
+        p = self.class.to_s.demodulize.underscore.singularize.to_sym
+
+        self.class.only_children.each do |klass|
+          c = klass.to_s.demodulize.underscore.singularize.to_sym
+
+          (class << self; self; end).class_eval do
+            define_method(c) do
+              attributes = to_hash[c]
+              logger.info attributes.inspect
+              model = klass.send :new, attributes.merge({p => self}) unless attributes.blank?
+            end
+          end
+        end
+      end
+
+      def create_child_accessors
+        return if self.class.children.blank?
+
+        p = self.class.to_s.demodulize.underscore.singularize.to_sym
+
+        self.class.children.each do |klass|
+          c = klass.to_s.demodulize.underscore.pluralize.to_sym
+
+          (class << self; self; end).class_eval do
+            define_method(c) do
+              collection = to_hash[c] || []
+              collection.collect do |h|
+                v = h[c.to_s.singularize]
+                model = klass.send :new, v.merge({p => self}) if v
+              end
+            end
+          end
+        end
+      end
+
+      def create_parent_accessors
+        return if self.class.parents.blank?
+
+        self.class.parents.each do |klass|
+          p = klass.to_s.demodulize.underscore.singularize.to_sym
+
+          (class << self; self; end).class_eval do
+            define_method(p) do
+              if v = to_hash[p]
+                model = klass.send :new, v
+              elsif id = to_hash["#{p.to_s}_id".to_sym]
+                model = klass.send :find, id
+              end
+            end
+          end
+        end
+      end
   end
 end
