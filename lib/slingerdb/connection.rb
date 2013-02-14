@@ -8,7 +8,7 @@ module SlingerDB
       else
         @connection = Faraday.new(SlingerDB.config.endpoint) do |faraday|
           setup_faraday(faraday)
-          faraday.adapter :em_http
+          #faraday.adapter :em_http
         end
       end
     end
@@ -30,6 +30,7 @@ module SlingerDB
       #faraday.response :dates
       faraday.response :slingerdb_response
       faraday.use :instrumentation
+      faraday.adapter :excon
     end
 
     def reset!

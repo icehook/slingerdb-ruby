@@ -53,7 +53,7 @@ module SlingerDB
 
 end
 
-Faraday.register_middleware :response, :slingerdb_response => lambda { SlingerDBResponseMiddleware }
+Faraday.register_middleware :response, :slingerdb_response => lambda { SlingerDB::SlingerDBResponseMiddleware }
 
 ActiveSupport::Notifications.subscribe('request.faraday') do |name, start_time, end_time, _, env|
   url = env[:url]

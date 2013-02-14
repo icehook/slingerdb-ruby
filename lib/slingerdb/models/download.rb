@@ -7,7 +7,15 @@ module SlingerDB
                             })
 
     def download
-      File.open(self.name, 'wb') { |fp| fp.write(Request.get(self.download_uri).body) } if self.complete?
+      f = File.open(self.name, 'w')
+
+      streamer = lambda do |chunk, remaining_bytes, total_bytes|
+        f.write chunk
+      end
+
+      Excon.get "#{self.download_uri}?auth_token=#{SlingerDB.config.api_key}", :response_block => streamer
+
+      f.close
     end
 
     def complete?
