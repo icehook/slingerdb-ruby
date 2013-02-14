@@ -6,14 +6,19 @@ module SlingerDB
                               :per_page => 356
                             })
 
-    def download
-      f = File.open(self.name, 'w')
+    def download(path = Dir.pwd)
+      response = Request.get self.download_uri
+      doc = Nokogiri::HTML(response.body)
+      links = doc.css('a')
+      href = links[0]['href']
+
+      f = File.open(File.join(path, self.name), 'w')
 
       streamer = lambda do |chunk, remaining_bytes, total_bytes|
         f.write chunk
       end
 
-      Excon.get "#{self.download_uri}?auth_token=#{SlingerDB.config.api_key}", :response_block => streamer
+      Excon.get href, :response_block => streamer, :read_timeout => 120
 
       f.close
     end

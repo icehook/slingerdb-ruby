@@ -40,4 +40,5 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'rash', '~> 0.3.2'
   s.add_runtime_dependency 'conformist', '~> 0.2.0'
   s.add_runtime_dependency 'hirb', '~> 0.7.0'
+  s.add_runtime_dependency 'nokogiri', '~> 1.5.6'
 end
