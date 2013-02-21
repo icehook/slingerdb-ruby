@@ -20,11 +20,18 @@
     Device.all
 ````
 
+#####Get a specific device
+````ruby
+    Device.find(<device_id>)
+````
+
 ###Call Detail Records
 
 #####Create a CDR Download
 ````ruby
     Download.create!(<device_id>, Date.new(2012, 05, 16), Date.new(2012, 05, 16))
+    # or
+    Device.find(222).create_downloads(Date.new(2012, 05, 16), Date.new(2012, 05, 16))
 ````
 
 ###Downloads
