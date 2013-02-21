@@ -30,3 +30,10 @@
            download.download
         end
 
+######Define download path
+    path = '/PathToFolder'
+    downloads = Download.all
+    downloads.each do |download|
+        if download.complete?
+            download.download(path)
+        end
