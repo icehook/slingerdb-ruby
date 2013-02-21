@@ -1,16 +1,19 @@
-##slingerdb-ruby
+#slingerdb-ruby
 
-Quick install -
+##Quick install -
 
-######require date and slingerdb
+######Require date and slingerdb
     require 'date'
     require 'slingerdb'
 
-######set up your slinger config with your api key
+######Set up your slinger config with your api key
     SlingerDB.config = {:api_key => "#{your_api_key}"}
     include SlingerDB
 
-######invoke the download method
+######Invoke the download method. This will download everything to your current working dir (Dir.pwd)
     Download.all
 ==============
 
+##Sample API request
+
+<pre><code>id=40763, user_id=670, device_id=246, name="Cookie Demo_2011_10_19.csv.gz", status="complete", prefix="device_246/2011/10/19/", cdr_count=1, share_key="bn1wczaemg5uei04ewds7so0zo7vurit4ea1ytl4", download_uri="https://slinger.icehook.com/downloads/40763/download", created_at="2013-02-20T21:50:37Z", updated_at="2013-02-20T21:50:45Z"</pre></code>
