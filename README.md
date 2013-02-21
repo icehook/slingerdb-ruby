@@ -15,21 +15,21 @@
 
 ###Devices
 
-####Get all devices
+#####Get all devices
 ````ruby
     Device.all
 ````
 
 ###Call Detail Records
 
-####Create a CDR Download
+#####Create a CDR Download
 ````ruby
     Download.create!(<device_id>, Date.new(2012, 05, 16), Date.new(2012, 05, 16))
 ````
 
 ###Downloads
 
-####Get all downlaods
+#####Get all downlaods
 ````ruby
     Download.all
 ````
@@ -44,7 +44,7 @@
 
 ######Download all files to local dir
     Download.all
-    
+
 ######Check the status of the download to make sure it's complete
     downloads = Download.all
     downloads.each do |download|
