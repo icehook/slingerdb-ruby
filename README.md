@@ -3,16 +3,21 @@
 ##Quick install -
 
 ######Require date and slingerdb
+````ruby
     require 'date'
     require 'slingerdb'
+````
 
 ######Set up your slinger config with your api key
+````ruby
     SlingerDB.config = {:api_key => "#{your_api_key}"}
     include SlingerDB
+````
 
 ######Invoke the download method. This will download everything to your current working dir (Dir.pwd)
+````ruby
     Download.all
-
+````
 ==============
 
 ##Sample API response
@@ -23,23 +28,28 @@
 ##"Download" class methods
 
 ######Download all files to local dir
+````ruby
     Download.all
+````
 
 ######Check the status of the download to make sure it's complete
+````ruby
     downloads = Download.all
     downloads.each do |download|
         if download.complete?
            download.download
         end
+````
 
 ######Define download path
+````ruby
     path = '/PathToFolder'
     downloads = Download.all
     downloads.each do |download|
         if download.complete?
             download.download(path)
         end
-
+````
 ==============
 
 ###Devices
