@@ -2,6 +2,7 @@ $:.push File.dirname(__FILE__)
 require 'logger'
 require 'tempfile'
 require 'open3'
+require 'date'
 require 'open-uri'
 require 'zlib'
 require 'fileutils'

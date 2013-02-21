@@ -12,6 +12,28 @@
 
 ######Invoke the download method. This will download everything to your current working dir (Dir.pwd)
     Download.all
+
+###Devices
+
+####Get all devices
+````ruby
+    Device.all
+````
+
+###Call Detail Records
+
+####Create a CDR Download
+````ruby
+    Download.create!(<device_id>, Date.new(2012, 05, 16), Date.new(2012, 05, 16))
+````
+
+###Downloads
+
+####Get all downlaods
+````ruby
+    Download.all
+````
+
 ==============
 
 ##Sample API request
