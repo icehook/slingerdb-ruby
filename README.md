@@ -1,6 +1,6 @@
-slingerdb-ruby
+##slingerdb-ruby
 
-##Quick install -
+Quick install -
 
 ######require date and slingerdb
     require 'date'
