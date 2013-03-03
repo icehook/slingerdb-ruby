@@ -37,9 +37,9 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'activesupport', '>= 3.0.0'
   s.add_runtime_dependency 'em-http-request', '~> 1.0.3'
   s.add_runtime_dependency 'em-synchrony', '~> 1.0.2'
-  s.add_runtime_dependency 'rash', '~> 0.3.2'
   s.add_runtime_dependency 'conformist', '~> 0.2.0'
   s.add_runtime_dependency 'hirb', '~> 0.7.0'
   s.add_runtime_dependency 'nokogiri', '~> 1.5.6'
   s.add_runtime_dependency 'excon', '~> 0.16.10'
+  s.add_runtime_dependency 'hashie', '~> 2.0.2'
 end

@@ -26,7 +26,7 @@ module SlingerDB
       faraday.response :raise_error
       faraday.response :xml,  :content_type => /\bxml$/
       faraday.response :multi_json, symbolize_keys: true, :adapter => :oj, :content_type => /\bjson$/
-      faraday.response :rashify
+      faraday.response :mashify
       #faraday.response :dates
       faraday.response :slingerdb_response
       faraday.use :instrumentation
