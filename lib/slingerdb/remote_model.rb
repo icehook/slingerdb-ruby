@@ -55,9 +55,7 @@ module SlingerDB
           responses = []
 
           pages_left.times.to_a.collect do
-            Request.connection.in_parallel do
-              responses << Request.get(path, p, options)
-            end
+            responses << Request.get(path, p, options)
           end
 
           responses.each { |response| models += response_models response }
