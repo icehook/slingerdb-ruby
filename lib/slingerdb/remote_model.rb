@@ -54,8 +54,9 @@ module SlingerDB
           pages_left = (options[:max_pages] || total_pages_left)
           responses = []
 
-          pages_left.times do
-            responses << Request.get(path, p, options)
+          pages_left.times do |i|
+            page = cp + i + 1
+            responses << Request.get(path, params.merge(:page => page), options)
           end
 
           responses.each { |response| models += response_models response }
