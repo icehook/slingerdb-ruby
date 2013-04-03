@@ -54,7 +54,7 @@ module SlingerDB
           pages_left = (options[:max_pages] || total_pages_left)
           responses = []
 
-          pages_left.times.to_a.collect do
+          pages_left.times do
             responses << Request.get(path, p, options)
           end
 
