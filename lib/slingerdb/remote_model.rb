@@ -76,7 +76,7 @@ module SlingerDB
         model = nil
 
         response = Request.get(path, params, options)
-        model = new(response.body) if response.status < 200 && !response.body.blank?
+        model = new(response.body) if response.status <= 200 && !response.body.blank?
 
         model
       end
