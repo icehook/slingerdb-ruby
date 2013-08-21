@@ -39,7 +39,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'conformist', '~> 0.2.0'
   s.add_runtime_dependency 'hirb', '~> 0.7.0'
   s.add_runtime_dependency 'nokogiri', '~> 1.5.6'
-  s.add_runtime_dependency 'excon', '~> 0.16.10'
+  s.add_runtime_dependency 'excon', '~> 0.25.3'
   s.add_runtime_dependency 'hashie', '~> 2.0.2'
   s.add_runtime_dependency 'encryptor', '~> 1.1.3'
 end
