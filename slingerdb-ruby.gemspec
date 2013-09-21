@@ -27,7 +27,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'ffaker', '>= 1.13.0'
   s.add_runtime_dependency 'home_run', '>= 1.0.6'
   s.add_runtime_dependency 'encryptor', '>= 1.1.3'
-  s.add_runtime_dependency 'multi_json', '~> 1.7.7'
+  s.add_runtime_dependency 'multi_json', '~> 1.7.9'
   s.add_runtime_dependency 'multi_xml', '~> 0.5.1'
   s.add_runtime_dependency 'faraday', '~> 0.8.4'
   s.add_runtime_dependency 'faraday_middleware', '~> 0.9.0'
