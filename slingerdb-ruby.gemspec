@@ -25,7 +25,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rspec', '>= 2.9.0'
   s.add_development_dependency 'bundler'
   s.add_development_dependency 'ffaker', '>= 1.13.0'
-  s.add_runtime_dependency 'home_run', '>= 1.0.6'
   s.add_runtime_dependency 'encryptor', '>= 1.1.3'
   s.add_runtime_dependency 'multi_json', '~> 1.7.9'
   s.add_runtime_dependency 'multi_xml', '~> 0.5.1'
