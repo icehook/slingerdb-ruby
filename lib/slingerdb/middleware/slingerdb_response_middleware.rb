@@ -9,7 +9,7 @@ module SlingerDB
       when 401
         raise PermissionDeniedException
       when 404
-        raise NonExistentRecord
+        raise UnexpectedHTTPException 
       when ClientErrorStatuses
         raise UnexpectedHTTPException
       when nil
