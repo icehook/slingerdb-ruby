@@ -7,7 +7,7 @@ module SlingerDB
                             })
 
     def to_file
-      request = SlingerDB::Request.new :get_file, self.download_uri.path
+      request = SlingerDB::Request.new :get_file, self.download_uri
       tf = request.send
       SlingerDB.logger.info Utils.gunzip tf
     end
