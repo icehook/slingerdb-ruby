@@ -3,11 +3,11 @@ module SlingerDB
 
     set_resource_attributes({
                               :collection_name => 'uploads',
-                              :per_page => 200
+                              :per_page => 10
                             })
 
     def to_file
-      request = Adapter::Request.new :get_file, self.download_uri.path
+      request = SlingerDB::Request.new :get_file, self.download_uri.path
       tf = request.send
       SlingerDB.logger.info Utils.gunzip tf
     end
