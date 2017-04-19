@@ -53,17 +53,17 @@
 
 
 ### Devices
-##### Get all devices
+###### Get all devices
 ````ruby
     Device.all
 ````
-##### Get a specific device
+###### Get a specific device
 ````ruby
     Device.find(<device_id>)
 ````
 
 ### Call Detail Records
-##### Create a CDR Download
+###### Create a CDR Download
 ````ruby
     Download.create!(<device_id>, Date.new(2012, 05, 16), Date.new(2012, 05, 16))
     # or
@@ -71,7 +71,7 @@
 ````
 
 ### Downloads
-##### Get all downlaods
+###### Get all downlaods
 ````ruby
     Download.all
 ````
