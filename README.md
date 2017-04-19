@@ -18,7 +18,7 @@
 ````ruby
     Download.all
 ````
-==============
+
 
 ## Sample API response
 ````ruby
@@ -50,7 +50,7 @@
             download.download(path)
         end
 ````
-==============
+
 
 ### Devices
 ##### Get all devices
