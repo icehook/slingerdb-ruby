@@ -39,6 +39,7 @@
         if download.complete?
            download.download
         end
+    end
 ````
 
 ###### Define download path
@@ -49,6 +50,7 @@
         if download.complete?
             download.download(path)
         end
+    end
 ````
 
 
@@ -71,7 +73,13 @@
 ````
 
 ### Downloads
-###### Get all downlaods
+###### Get all downloads
 ````ruby
     Download.all
+````
+###### Delete  download
+````ruby
+    downloads = Download.all
+    x = downloads.first
+    x.destroy!
 ````
